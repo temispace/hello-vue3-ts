@@ -6,13 +6,14 @@
 export default {
     name: 'Person',
     setup(){
-        let name = 'zangsan'
+        let name = 'zangsan' // vue3中开始弱化this
         let age = 18
         return {name,age};
 
         function testAdd() {
-            console.log('testAdd')
+            name = 'lisi'
         }
+        return {testAdd}
     }
 }
 
