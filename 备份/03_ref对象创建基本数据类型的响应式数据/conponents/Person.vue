@@ -1,9 +1,10 @@
 <template>
     <div class="Person">
-      <h2>车的品牌：{{car.brand}}</h2>
-      <h2>车的价格：{{car.price}}w</h2>
-      <button @click="changeBrand">修改品牌</button>
-      <button @click="changePrice">修改价格</button>
+      <h2>姓名：{{ name }}</h2>
+      <h2>年龄：{{ age }}</h2>
+      <button @click="changeName">点击修改姓名</button>
+      <button @click="changeAge">年龄加1</button>
+      <button @click="showTelephone">展示电话</button>
     </div>
 </template>
 <script lang="ts">
@@ -11,24 +12,23 @@ export default {
     name: 'Person'
 }
 </script>
-// 作用：将一个响应式对象中的每一个属性，转换为`ref`对象
-// 备注：toRefs与toRef功能一致，但toRefs可以批量转换
-<script lang="ts" setup>
-   import {reactive,toRefs,toRef} from 'vue'
-   let car = reactive({
-    brand:'大众',
-    price:100
-   })
-    
-   let {brand,price} = toRefs(car)
 
-   function changeBrand(){
-     brand.value = 'benz'
-   }
-   function changePrice(){
-    price.value +=10
-   }
+<script lang="ts" setup>
+    import { ref } from 'vue'
+
+    let name = ref('zangsan')
+    let age = ref(18)
+    let tele = '18232324036'
     
+    function changeName() {
+        name.value = 'lisi'
+    }
+    function changeAge() {
+        age.value++
+    }
+    function showTelephone() {
+        alert(tele)
+    }
 </script>
 <style scoped>
     .Person {

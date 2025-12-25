@@ -1,9 +1,11 @@
 <template>
     <div class="Person">
-      <h2>车的品牌：{{car.brand}}</h2>
-      <h2>车的价格：{{car.price}}w</h2>
-      <button @click="changeBrand">修改品牌</button>
+      <h2>这是一辆{{ car.name }}车，价格为：{{ car.price }}w</h2>
       <button @click="changePrice">修改价格</button>
+      <button @click="changeName">修改休息名字</button>
+      <ul v-for="game in games" :key="game.id">
+        <li>{{game.name}}</li>
+      </ul>
     </div>
 </template>
 <script lang="ts">
@@ -11,23 +13,24 @@ export default {
     name: 'Person'
 }
 </script>
-// 作用：将一个响应式对象中的每一个属性，转换为`ref`对象
-// 备注：toRefs与toRef功能一致，但toRefs可以批量转换
-<script lang="ts" setup>
-   import {reactive,toRefs,toRef} from 'vue'
-   let car = reactive({
-    brand:'大众',
-    price:100
-   })
-    
-   let {brand,price} = toRefs(car)
 
-   function changeBrand(){
-     brand.value = 'benz'
-   }
-   function changePrice(){
-    price.value +=10
-   }
+<script lang="ts" setup>
+    import { ref,reactive } from 'vue'
+    
+    let car = ref({name:'benz',price:100})
+    
+    let games=ref([
+        {id:1,name:'GTA V'},
+        {id:2,name:'生化危机'},
+        {id:3,name:'对马岛之魂'}
+    ])
+    function changeName(){
+       games.value[0].name = '文明6'
+    }
+    function changePrice(){
+        car.value.name +=10
+    }
+    
     
 </script>
 <style scoped>
