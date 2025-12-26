@@ -1,6 +1,6 @@
 <template>
   <div class="Person">
-    <h1>监视ref或reactive定义的【对象类型】数据中的某个属性</h1>
+    <h1>监视reactive定义的【对象类型】数据，且默认开启了深度监视</h1>
     <h2>{{ person.name }}</h2>
     <p>Age: {{ person.age }}</p>
     <p>Obj: {{ obj.a.b.c }}</p>
@@ -8,9 +8,7 @@
     <button @click="changeName">修改名字</button>
     <button @click="changeAge">修改年龄</button>
     <button @click="changePerson">修改人员</button>
-    <button @click="changeObj1">修改对象下的car1</button>
-    <button @click="changeObj2">修改对象下的car2</button>
-    <button @click="changeObj3">修改对象下的整个car</button>
+    <button @click="changeObj">修改对象</button>
   </div>
 </template>
 
@@ -18,7 +16,7 @@
 <script lang="ts" setup name="Person">
 import { ref, watch,reactive } from 'vue'
 
-let person = ref({
+let person = reactive({
   name: 'Person',
   age: 18
 })
@@ -28,10 +26,6 @@ let obj = reactive({
     b:{
       c:1
     }
-  },
-  car:{
-    c1:'大众',
-    c2:'宝马'
   }
 })
 
@@ -41,27 +35,21 @@ function changePerson() {
   Object.assign(person, { name: 'Person2', age: 20 })
 }
 function changeName(){
-  person.value.name += '~'
+person.name += '~'
 }
 function changeAge(){
-  person.value.age +=2
+  person.age +=2
 }
-function changeObj1(){
-  obj.car.c1 = '奔驰'
-}
-function changeObj2(){
-  obj.car.c2 = '野马'
-}
-function changeObj3(){
-  obj.car = { c1:'电动', c2:'奥迪' }
+function changeObj(){
+  obj.a.b.c += 2
 }
 
-watch(() => person.value.name, (newVal, oldVal) => {
+watch(person, (newVal, oldVal) => {
   console.log('person changed', newVal, oldVal)
 })
-watch([() => obj.car.c1, () => obj.car.c2], (newVal, oldVal) => {
+watch(obj, (newVal, oldVal) => {
   console.log('obj changed', newVal, oldVal)
-},{deep: true})
+})
 
 </script>
 
