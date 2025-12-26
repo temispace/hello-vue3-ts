@@ -1,13 +1,11 @@
 <template>
     <Person/>
-    <BeautifulPerson/>
 </template>
 <script lang="ts">
     import Person from './conponents/Person.vue';
-    import BeautifulPerson from './conponents/BeautifulPerson.vue';
     export default {
         name: 'App',
-        components:{Person,BeautifulPerson}
+        components:{Person}
     }
 </script>
 <style>

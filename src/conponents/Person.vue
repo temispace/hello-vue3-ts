@@ -1,37 +1,56 @@
 <template>
-    <div class="Person">
-      <h2>车的品牌：{{car.brand}}</h2>
-      <h2>车的价格：{{car.price}}w</h2>
-      <button @click="changeBrand">修改品牌</button>
-      <button @click="changePrice">修改价格</button>
-    </div>
+  <div class="Person">
+    <input type="text" v-model="firstName"></input></br>
+    <input type="text" v-model="lastName"></input></br>
+    <h2>全名：{{ fullName }}</h2>
+    <button @click="changeNameToLisi">点击修改名字为Lisi</button>
+  </div>
 </template>
 <script lang="ts">
 export default {
-    name: 'Person'
+  name: 'Person'
 }
 </script>
-// 作用：将一个响应式对象中的每一个属性，转换为`ref`对象
-// 备注：toRefs与toRef功能一致，但toRefs可以批量转换
-<script lang="ts" setup>
-   import {reactive,toRefs,toRef} from 'vue'
-   let car = reactive({
-    brand:'大众',
-    price:100
-   })
-    
-   let {brand,price} = toRefs(car)
 
-   function changeBrand(){
-     brand.value = 'benz'
-   }
-   function changePrice(){
-    price.value +=10
-   }
-    
+<script lang="ts" setup>
+import { ref, computed } from 'vue'
+let firstName = ref('zhang')
+let lastName = ref('san')
+
+// 这样写的计算属性，参数传入了一个get箭头函数，数据为可读，不能操作修改
+/* let fullName = computed(()=>{
+  return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + "-" + lastName.value
+}) */
+
+
+// 这样写的计算属性，传入一个对象，对象有get set两个箭头函数吗，数据可以操作修改
+// 注意两种计算方式的语法
+/*   let fullName = computed({
+    get: () => {
+      return firstName.value.slice(0,1).toUpperCase() +  firstName.value.slice(1)  + "-" + lastName.value  
+    },
+    set: (value) => {
+      firstName.value = value.split('-')[0]
+      lastName.value = value.split('-')[1]
+    }
+  }) */
+//  再次编写一次不是只读的计算属性
+let fullName = computed({
+  get:()=>{
+    return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + "-" + lastName.value
+  },
+  set:(value)=>{
+    firstName.value = value.split('-')[0]
+    lastName.value = value.split('-')[1]
+  }
+})
+
+function changeNameToLisi() {
+  fullName.value = 'li-si'
+}
 </script>
 <style scoped>
-    .Person {
+.Person {
   max-width: 400px;
   margin: 20px auto;
   padding: 25px;

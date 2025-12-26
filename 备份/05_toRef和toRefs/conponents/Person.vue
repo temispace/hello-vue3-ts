@@ -20,13 +20,19 @@ export default {
     price:100
    })
     
-   let {brand,price} = toRefs(car)
+   let {brand,price} = car
 
    function changeBrand(){
-     brand.value = 'benz'
+     brand = 'benz'
+     car.brand = '联想'
+     console.log(brand,1231)
+     console.log(car.brand,1231)
    }
    function changePrice(){
-    price.value +=10
+    price +=10
+    car.price +=10
+    console.log(price,1231)
+    console.log(car.price,1231)
    }
     
 </script>

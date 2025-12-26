@@ -1,11 +1,9 @@
 <template>
     <div class="Person">
-      <h2>这是一辆{{ car.name }}车，价格为：{{ car.price }}w</h2>
-      <button @click="changePrice">修改价格</button>
-      <button @click="changeName">修改休息名字</button>
-      <ul v-for="game in games" :key="game.id">
-        <li>{{game.name}}</li>
-      </ul>
+      <input type="text" v-model="firstName"></input></br>
+      <input type="text" v-model="lastName"></input></br>
+      <h2>全名：{{fullName}}</h2>
+      <button @click="changeNameToLisi">点击修改名字为Lisi</button>
     </div>
 </template>
 <script lang="ts">
@@ -15,25 +13,30 @@ export default {
 </script>
 
 <script lang="ts" setup>
-    import { ref,reactive } from 'vue'
-    
-    let car = ref({name:'benz',price:100})
-    
-    let games=ref([
-        {id:1,name:'GTA V'},
-        {id:2,name:'生化危机'},
-        {id:3,name:'对马岛之魂'}
-    ])
-    function changeName(){
-      //  games[0].name = '文明6'
-      games.value[0].name = '文明6'
+   import {ref,computed} from 'vue'
+   let firstName = ref('zhang')
+   let lastName = ref('san')
+   
+   // 这样写的计算属性，数据为可读，不能操作修改
+  //  let fullName = computed(()=>{
+  //    return firstName.value.slice(0,1).toUpperCase() +  firstName.value.slice(1)  + "-" + lastName.value  
+  //  })
+
+  // 这样写的计算属性，数据可以操作修改
+  // 注意两种计算方式的语法
+  let fullName = computed({
+    get: () => {
+      return firstName.value.slice(0,1).toUpperCase() +  firstName.value.slice(1)  + "-" + lastName.value  
+    },
+    set: (value) => {
+      firstName.value = value.split('-')[0]
+      lastName.value = value.split('-')[1]
     }
-    function changePrice(){
-        // car.price +=10
-        car.value.price +=10
-    }
-    
-    
+  })
+
+   function changeNameToLisi(){
+    fullName.value = 'li-si'
+   }
 </script>
 <style scoped>
     .Person {
