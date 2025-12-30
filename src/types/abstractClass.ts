@@ -1,6 +1,6 @@
 // 普通类 抽象类 接口 泛型
 // 常规类
-import { Gender } from "./enumclass"
+import { Gender } from "@/types/enumclass.ts"
 class Person {
     
     name:string
