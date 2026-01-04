@@ -1,10 +1,8 @@
 <template>
-    <Person v-if="isShow"/>
+    <Person/>
 </template>
 <script lang="ts" setup  name="App">
     import Person from './conponents/Person.vue';
-    import {ref} from 'vue'
-    let isShow = ref(true)
 </script>
 <style>
     button{

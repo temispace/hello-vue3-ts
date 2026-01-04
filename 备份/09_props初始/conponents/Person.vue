@@ -1,40 +1,33 @@
 <template>
   <div class="Person">
-    <h2>加和为：{{ sum }}</h2>
-    <button @click="add">点我加1</button>
+    <ul>
+      <li v-for="person in personList" :key="person.id">{{ person.name }} -- {{ person.age }}</li>
+    </ul>
   </div>
 </template>
 
 
 <script lang="ts" setup name="Person">
-  import { ref,onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted } from 'vue'
-  let sum = ref(0)
+  
+import {type Persons} from '@/types'
 
-  function add(){
-    sum.value+=1
-  }
+// 仅接收
+// const props = defineProps(['personList']);
 
-  console.log('setup')
-  // 生命周期钩子
-  onBeforeMount(()=>{
-    console.log('挂载之前')
-  })
-  onMounted(()=>{
-    console.log('挂载完毕')
-  })
-  onBeforeUpdate(()=>{
-    console.log('更新之前')
-  })
-  onUpdated(()=>{
-    console.log('更新完毕')
-  })
-  onBeforeUnmount(()=>{
-    console.log('卸载之前')
-  })
-  onUnmounted(()=>{
-    console.log('卸载完毕')
-  })
+// 接收 + 限制类型
+// const props = defineProps<{personList:Persons}>()
 
+// 第三种写法：接收+限制类型+指定默认值+限制必要性
+/* let props = withDefaults(defineProps<{personList?:Persons}>(),{
+  personList:()=>[{id:1,name:'小猪佩奇',age:18}]
+}) */
+
+/* withDefaults(defineProps<{personList?:Persons}>(),{
+  personList:()=>[{id:2,name:'佩奇',age:18}]
+}) */
+withDefaults(defineProps<{personList?:Persons}>(),{
+  personList:()=>[{id:2,name:'佩奇',age:18}]
+})
 
 </script>
 
