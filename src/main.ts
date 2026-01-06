@@ -2,11 +2,11 @@
 import {createApp} from 'vue';
 // 引入根组件App
 import App from './App.vue';
-// 引入路由器
-import {router} from '@/router'
+import {createPinia} from 'pinia';
 // 创建应用实例
 const app = createApp(App);
-// 使用路由器
-app.use(router)
+const pinia = createPinia()
+// 使用pinia
+app.use(pinia)
 // 挂载app实例
 app.mount('#app');
