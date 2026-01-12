@@ -1,7 +1,10 @@
 <template> 
   <div class="count">
+    <h2>原sum值：{{ sum }}</h2>
     <h2>当前求和为：{{sumState.sum}}</h2>
     <h2>地址为：{{sumState.adress}}</h2>
+    <h2>地址为：{{sumState.street}}</h2>
+    <h2>地址为1：{{street}}</h2>
   <select v-model.number="n">
     <option value="1">1</option>
     <option value="2">2</option>
@@ -19,6 +22,7 @@
 <script setup lang="ts" name="Count">
   import { ref,toRefs } from 'vue';
   import { useCountStore } from '@/store/Count';
+  import { storeToRefs } from 'pinia';
   let n = ref(0)
   const sumState = useCountStore()
 
@@ -27,6 +31,7 @@
     sum:999,
     adress:"尚硅谷"
   }) */
+  const {sum,street} = storeToRefs(sumState)
   
   function add(){
     sumState.increment(n.value)
