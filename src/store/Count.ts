@@ -1,16 +1,26 @@
 import { defineStore } from "pinia";
 
-const useCountStore = defineStore('count',{
+export const useCountStore = defineStore('count',{
     // action 动作
-    actions:{},
-
+    actions:{
+      increment(value:number){
+          this.sum += value
+      },
+      decrement(value:number){
+       this.sum -= value
+      }
+    },
     // state 状态
-    state(){
-        return{
-                
+    state:()=>{
+    return{
+           sum:20,
+           adress:'atguigu',
+           street:'北京·中国'
         }
     },
 
     // getter 计算
     getters:{}
 })
+
+// export default useCountStore
