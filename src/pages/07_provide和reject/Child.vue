@@ -1,17 +1,13 @@
 <template>
   <div class="child">
     <h2>子组件</h2>
-    <hr>
-    <button @click="$emit('send-toy',toy)">点我把玩具给父亲</button>
+    <GrandChild></GrandChild>
   </div>
 </template>
 
 <script setup lang="ts" name="Child">
-    import {ref} from 'vue'
-    
-    let toy = ref('奥特曼')
+    import GrandChild from './GrandChild.vue';
 
-    defineEmits(['send-toy'])
 </script>
 
 <style scoped>

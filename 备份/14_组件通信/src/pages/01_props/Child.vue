@@ -2,16 +2,19 @@
   <div class="child">
     <h2>子组件</h2>
     <hr>
-    <button @click="$emit('send-toy',toy)">点我把玩具给父亲</button>
+    <h4>子接收的数据:{{ car }}</h4>
+    <button @click="getToy(toy)">点击传递玩具给父组件</button>
   </div>
 </template>
 
 <script setup lang="ts" name="Child">
-    import {ref} from 'vue'
-    
-    let toy = ref('奥特曼')
+  import {ref} from 'vue'
 
-    defineEmits(['send-toy'])
+  let toy = ref('乐高')
+  
+  // props：常用于父-->子 非函数
+  defineProps(['getToy','car'])
+
 </script>
 
 <style scoped>
